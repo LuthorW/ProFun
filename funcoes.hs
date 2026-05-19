@@ -1,6 +1,6 @@
 {- HLINT ignore "Use foldr" -}
 {- HLINT ignore "Use map" -}
-import Data.Char (isUpper, isLower, isDigit)
+import Data.Char (isUpper, isLower, isDigit, isNumber, ord)
 
 --  função que soma todos os elementos da lista de inteiros
 somaList :: [Int] -> Int
@@ -100,10 +100,24 @@ lastDigit :: Int -> Int
 lastDigit x = x `mod` 10
 
 -- função que recebe [Char] e retorna [(Bool,Char)] True se Char for alfanumérico e False, caso contrário
-setAlfa:: String -> [(Bool, Char)] 
+setAlfa :: String -> [(Bool, Char)] 
 setAlfa [] = []
 setAlfa (x:xs) = (meuIsAlphaNum x, x) : setAlfa xs
 
 -- função para verificar se é alfanumérico, sem usar a pré definida
 meuIsAlphaNum :: Char -> Bool
 meuIsAlphaNum c = isUpper c || isLower c || isDigit c
+
+-- função que recebe [Char] e retorna [(Bool,Char)] True se Char for númerico
+setNum :: String -> [(Bool, Char)]
+setNum [] = []
+setNum (x:xs) = (isNumber x, x) : setNum xs
+
+-- função que recebe [Char] e retorna o 'endereço' dele na tabela ASCII
+alfaInt :: String -> [Int]
+alfaInt [] = []
+alfaInt (x:xs) = ord x  : alfaInt xs
+-- outra maneira de fazer usando 'map'
+alfaIntM :: String -> [Int]
+alfaIntM = map ord 
+ 
