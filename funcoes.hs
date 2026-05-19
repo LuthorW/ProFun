@@ -120,4 +120,70 @@ alfaInt (x:xs) = ord x  : alfaInt xs
 -- outra maneira de fazer usando 'map'
 alfaIntM :: String -> [Int]
 alfaIntM = map ord 
- 
+
+-- função que ordena uma lista de inteiros
+ordenaLista :: [Int] -> [Int]
+ordenaLista [] = []
+ordenaLista (x:xs) = insere x (ordenaLista xs)
+
+-- função que insere um número numa lista
+insere :: Int -> [Int] -> [Int]
+insere a [] = [a]
+insere a (x:xs) 
+    | a <= x = a : x :xs
+    | otherwise = x : insere a xs
+
+-- função que inverte um número inteiro
+invertInt :: Int -> Int
+invertInt x
+  | x < 0     = - (inverteAux 0 (-x))
+  | otherwise = inverteAux 0 x
+
+-- Função auxiliar que faz a inversão matemática 
+inverteAux :: Int -> Int -> Int
+inverteAux acc 0 = acc
+inverteAux acc x = inverteAux (acc * 10 + (x `mod` 10)) (x `div` 10)
+
+-- questão 6 da lista 
+raizIne :: Int -> Float
+raizIne 0 = sqrt 6
+raizIne x = sqrt (6 + raizIne(x - 1))
+
+-- questão 7 da lista
+comb :: Int -> Int -> Int
+comb x y = fatorial x `div` (fatorial y * fatorial (x-y))
+
+-- função que calcula o mdc de dois números
+mdc :: Int -> Int -> Int
+mdc x y
+    | x `mod` y == 0 = y
+    | otherwise = mdc y (x `mod` y)
+
+
+
+
+
+
+
+{- TESTE DE VENDAS -}
+
+-- tabela de vendas
+vendas :: Int -> Int
+vendas 0 = 0
+vendas 1 = 41
+vendas 2 = 72
+vendas 3 = 48
+vendas 4 = 0
+vendas 5 = 91
+vendas 6 = 55
+vendas 7 = 30
+
+-- função que retorna uma lista de vendas
+listaVendas :: Int-> [Int]
+listaVendas 0 = []
+listaVendas x = vendas x : listaVendas (x - 1)
+
+-- função que retorna [[Int]] com listas de dia e venda
+listaDia :: Int->[[Int]]
+listaDia 0 = []
+listaDia x = [x, vendas x] : listaDia (x - 1)
