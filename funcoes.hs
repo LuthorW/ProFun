@@ -159,8 +159,60 @@ mdc x y
     | x `mod` y == 0 = y
     | otherwise = mdc y (x `mod` y)
 
+-- função para identificar se três números inteiros são todos diferentes entre si
+allDifferent :: Int -> Int -> Int -> Bool
+allDifferent m n p = (m/=n) && (n/=p) && (m/=p)
+
+howEqual :: Int -> Int -> Int -> Int
+howEqual x y z
+    | x == y && y == z = 3
+    | x == y || x == z || y == z = 2
+    | otherwise = 0
+
+funny :: Int -> Int -> Int -> Bool
+funny x y z = y >= x
+
+tamL :: [Int] -> Int
+tamL [] = 0
+tamL (x:xs) = 1 + tamL xs
+
+conta :: [Char] -> Char -> Int
+conta [] _ = 0
+conta (x:xs) a
+    | x == a = 1 + conta xs a
+    | otherwise = conta xs a
+
+push :: String -> Int -> String
+push x a
+    | length x >= a = x
+    | otherwise = push('>' : x) a
 
 
+
+{- QUESTÕES PROVA-}
+
+q1 :: Int -> [Int] -> Bool
+q1 a [] = False
+q1 a (x:xs)
+    | a == x = True
+    | otherwise = q1 a xs
+
+q2 :: Int->[[Int]]->[(Bool,[Int])]
+q2 a [] = []
+q2 a (x:xs) = (q1 a x, x) : q2 a xs
+
+q3 :: Int -> [[Int]] -> (Int, [(Bool, [Int])])
+q3 x l = (x, q2 x l)
+
+q4 :: (Int,[(Bool,[Int])]) -> [[Int]]
+q4 (_, []) = []
+q4 (a, (False, x) : xs) = x : q4 (a, xs)
+q4 (a, (True, _) : xs) = q4 (a, xs)
+
+q5 :: String -> String -> [Bool]
+q5 _ [] = []
+q5 [] _ = []
+q5 (x:xs) (y:ys) = (x == y) : q5 xs ys
 
 
 
