@@ -189,7 +189,7 @@ push x a
 
 
 
-{- QUESTÕES PROVA-}
+{- QUESTÕES PROVA -}
 
 q1 :: Int -> [Int] -> Bool
 q1 a [] = False
